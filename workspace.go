@@ -57,9 +57,9 @@ func (ws workspace) Focus() error {
 	return nil
 }
 
-func (ws workspace) BorrowFocusedContainer() error {
+func (ws workspace) FlipFocusedContainer() error {
 	if cr, err := i3msg(fmt.Sprintf("move container to workspace %s", ws.Name)); err != nil {
-		return fmt.Errorf("failed to focus workspace '%s': %+v", ws.id(), cr)
+		return fmt.Errorf("failed to move workspace '%s': %+v", ws.id(), cr)
 	}
 	return nil
 }

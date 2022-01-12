@@ -9,8 +9,8 @@ import (
 type wsExtensionAction string
 
 const (
-	toggleWsExtensionAction          wsExtensionAction = "toggle"
-	borrowContainerWsExtensionAction wsExtensionAction = "borrow-container"
+	toggleWsExtensionAction        wsExtensionAction = "toggle"
+	flipContainerWsExtensionAction wsExtensionAction = "flip"
 )
 
 func getNextWorkspace(ws workspace) (nextWs workspace, err error) {
@@ -24,10 +24,10 @@ func getNextWorkspace(ws workspace) (nextWs workspace, err error) {
 	return
 }
 
-func borrowContainer() {
+func flipContainer() {
 	nextWs := mustGetNextWs()
-	if err := nextWs.BorrowFocusedContainer(); err != nil {
-		log.Fatalf("failed to borrow focused container to workspace '%s': %v", nextWs, err)
+	if err := nextWs.FlipFocusedContainer(); err != nil {
+		log.Fatalf("failed to flip focused container to workspace '%s': %v", nextWs, err)
 	}
 }
 
@@ -59,7 +59,7 @@ func mustGetNextWs() workspace {
 
 func main() {
 	if len(os.Args) != 2 {
-		fmt.Fprintf(os.Stderr, "Usage: %s <%s|%s>\n", os.Args[0], toggleWsExtensionAction, borrowContainerWsExtensionAction)
+		fmt.Fprintf(os.Stderr, "Usage: %s <%s|%s>\n", os.Args[0], toggleWsExtensionAction, flipContainerWsExtensionAction)
 		log.Fatalf("No argument(s) provided")
 	}
 
@@ -67,8 +67,8 @@ func main() {
 	switch wsAction {
 	case toggleWsExtensionAction:
 		toggle()
-	case borrowContainerWsExtensionAction:
-		borrowContainer()
+	case flipContainerWsExtensionAction:
+		flipContainer()
 
 	default:
 		log.Fatalf("Unknown action '%s' provided", wsAction)

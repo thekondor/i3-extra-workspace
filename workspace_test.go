@@ -36,15 +36,15 @@ func TestWorkspace(t *testing.T) {
 			assert.Equal(t, `workspace _1:work`, cmd)
 		})
 
-		t.Run(`borrow container`, func(t *testing.T) {
+		t.Run(`flip container`, func(t *testing.T) {
 			ws := newWs(t, `1:work`)
 
-			require.NoError(t, ws.BorrowFocusedContainer())
+			require.NoError(t, ws.FlipFocusedContainer())
 			assert.Equal(t, `move container to workspace 1:work`, cmd)
 
 			nextWs, err := ws.Extension()
 			require.NoError(t, err)
-			require.NoError(t, nextWs.BorrowFocusedContainer())
+			require.NoError(t, nextWs.FlipFocusedContainer())
 			assert.Equal(t, `move container to workspace _1:work`, cmd)
 
 		})

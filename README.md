@@ -27,12 +27,12 @@ Through i3 config (in case that no golang's default environment variables are ov
 
 ```
 bindsym $mod+period exec ~/go/bin/i3-extra-workspace toggle
-bindsym $mod+shift+period exec ~/go/bin/i3-extra-workspace borrow-container
+bindsym $mod+shift+period exec ~/go/bin/i3-extra-workspace flip
 ```
 
 `toggle` to create and navigate to an extra workspace immediately and vice versa.
 
-`borrow-container` to borrow (ok: move) a focused container to the extra workspace and vice versa. The extra workspace is created if there is none.
+`flip` to flip (ok: move) a focused container to the extra workspace and vice versa. The extra workspace is created if there is none.
 
 ## Notes
 
