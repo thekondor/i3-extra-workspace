@@ -1,6 +1,6 @@
 # i3-extra-workspace
 
-Tool to create and navigate to an extra supplementary (against focused one) workspace.
+Scratchpad for each workspace. Tiny utility to create and navigate to an extra supplementary (against focused one) workspace.
 
 ```
 # '2:work' is a focused workspace 
@@ -13,7 +13,7 @@ $ i3-extra-workspace toggle
 
 ## Rationale
 
-Instead of having a complex and composite layout (e.g. tabbed), that could be convenient to have a workspace with related containers which are not required right away or used not often (e.g. set of containers with documentation). An extra workspace with almost same name could come to the rescue.
+Instead of having a complex and composite layout (e.g. tabbed), that could be convenient to have a workspace with related containers which are not required right away or used not often (e.g. set of containers with documentation). Vanilla i3's scratchpad is fine until there are too many unrelated windows (or involvement of some tricks with labeling etc. is required). An extra workspace with a similar same name could come to the rescue.
 
 ## Usage
 
