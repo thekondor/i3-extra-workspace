@@ -10,7 +10,7 @@ import (
 
 func newWs(t *testing.T, name string) workspace {
 	t.Helper()
-	return workspace{i3.Workspace{Name: name}}
+	return workspace{Workspace: i3.Workspace{Name: name}, extensionPrefix: "_"}
 }
 
 func TestWorkspace(t *testing.T) {
