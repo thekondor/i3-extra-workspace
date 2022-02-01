@@ -11,6 +11,7 @@ type args struct {
 	ExtensionPrefix string
 	WsAction        string
 
+	// to keep testing possible
 	fatalfFn func(string, ...interface{})
 }
 
@@ -26,11 +27,13 @@ func (a args) fatalf(fmt string, args ...interface{}) {
 func (a *args) mustParse(args []string) {
 	if len(args) < 2 {
 		fmt.Fprintf(os.Stderr, "Usage: %s [-ws-prefix prefix:string] <%s|%s>\n", args[0], toggleWsExtensionAction, flipContainerWsExtensionAction)
-		log.Fatalf("No argument(s) provided")
+		a.fatalf("No argument(s) provided")
+		return
 	}
 
 	if err := a.parse(args[1:]); err != nil {
-		log.Fatalf("Failed to parsed arguments: %s", err)
+		a.fatalf("Failed to parsed arguments: %s", err)
+		return
 	}
 }
 
