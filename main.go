@@ -11,6 +11,7 @@ type wsExtensionAction string
 const (
 	toggleWsExtensionAction        wsExtensionAction = "toggle"
 	flipContainerWsExtensionAction wsExtensionAction = "flip"
+	defaultExtensionPrefix         string            = "+"
 )
 
 func getNextWorkspace(ws workspace) (nextWs workspace, err error) {
@@ -24,22 +25,22 @@ func getNextWorkspace(ws workspace) (nextWs workspace, err error) {
 	return
 }
 
-func flipContainer() {
-	nextWs := mustGetNextWs()
+func flipContainer(extensionPrefix string) {
+	nextWs := mustGetNextWs(extensionPrefix)
 	if err := nextWs.FlipFocusedContainer(); err != nil {
 		log.Fatalf("failed to flip focused container to workspace '%s': %v", nextWs, err)
 	}
 }
 
-func toggle() {
-	nextWs := mustGetNextWs()
+func toggle(extensionPrefix string) {
+	nextWs := mustGetNextWs(extensionPrefix)
 	if err := nextWs.Focus(); err != nil {
 		log.Fatalf("failed to focus workspace '%s': %v", nextWs, err)
 	}
 }
 
-func mustGetNextWs() workspace {
-	wss, err := listWorkspaces()
+func mustGetNextWs(extensionPrefix string) workspace {
+	wss, err := listWorkspaces(extensionPrefix)
 	if err != nil {
 		log.Fatalf("failed to list workspaces: %v", err)
 	}
@@ -58,19 +59,16 @@ func mustGetNextWs() workspace {
 }
 
 func main() {
-	if len(os.Args) != 2 {
-		fmt.Fprintf(os.Stderr, "Usage: %s <%s|%s>\n", os.Args[0], toggleWsExtensionAction, flipContainerWsExtensionAction)
-		log.Fatalf("No argument(s) provided")
-	}
+	args := args{}
+	args.mustParse(os.Args)
 
-	wsAction := wsExtensionAction(os.Args[1])
-	switch wsAction {
+	switch wsExtensionAction(args.WsAction) {
 	case toggleWsExtensionAction:
-		toggle()
+		toggle(args.ExtensionPrefix)
 	case flipContainerWsExtensionAction:
-		flipContainer()
+		flipContainer(args.ExtensionPrefix)
 
 	default:
-		log.Fatalf("Unknown action '%s' provided", wsAction)
+		log.Fatalf("Unknown action '%s' provided", args.WsAction)
 	}
 }
