@@ -1,0 +1,2 @@
+bindsym $mod+period exec ~/.local/usr/bin/i3-extra-ws -ws-prefix ⊕ toggle
+bindsym $mod+shift+period exec ~/.local/usr/bin/i3-extra-ws -ws-prefix ⊕ flip
