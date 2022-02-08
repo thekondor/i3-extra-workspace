@@ -3,7 +3,7 @@
 _pkgname=i3-extra-workspace
 _gitname=i3-extra-workspace
 pkgname=$_pkgname-git
-pkgver=r5.4df9d85
+pkgver=r5.feb0e25
 pkgrel=1
 pkgdesc="Workspace-specific scratchpads (extra workspaces) for i3"
 
@@ -16,7 +16,7 @@ provides=("$_pkgname")
 conflicts=("$_pkgname")
 source=("git+https://github.com/thekondor/$_gitname.git")
 md5sums=('SKIP')
-install="$_pkgname.install"
+install=PKGBUILD.install
 
 pkgver() {
   cd "$_gitname"
@@ -25,7 +25,7 @@ pkgver() {
 
 build() {
   cd "$_gitname"
-  go test -v ./... && go build
+  CGO_ENABLED=0 go test -v ./... && go build
 }
 
 package() {
